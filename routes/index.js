@@ -6,7 +6,8 @@ router.get('/', (req, resp) => {
 	// resp.json(js_object);
 	// req.body for posted params
 	// send back the query aka the echo server
-	resp.send(req.query);
+	// resp.send(req.query);
+	resp.render('hello')
 });
 
 router.get('/reverse/:string_to_reverse', (req, resp) => {
