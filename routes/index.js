@@ -7,7 +7,11 @@ router.get('/', (req, resp) => {
 	// req.body for posted params
 	// send back the query aka the echo server
 	// resp.send(req.query);
-	resp.render('hello')
+	resp.render('hello',{
+		name: 'casey',
+		template_system: 'pug',
+		dog_is: req.query.dog
+	})
 });
 
 router.get('/reverse/:string_to_reverse', (req, resp) => {
