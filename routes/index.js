@@ -10,7 +10,8 @@ router.get('/', (req, resp) => {
 	resp.render('hello',{
 		name: 'casey',
 		template_system: 'pug',
-		dog_is: req.query.dog
+		dog_is: req.query.dog,
+		title: "Home"
 	})
 });
 
