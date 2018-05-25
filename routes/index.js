@@ -1,24 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const store_controller = require('../controllers/store_controller')
 
-router.get('/', (req, resp) => {
-	// resp.send("string")
-	// resp.json(js_object);
-	// req.body for posted params
-	// send back the query aka the echo server
-	// resp.send(req.query);
-	resp.render('hello',{
-		name: 'casey',
-		template_system: 'pug',
-		dog_is: req.query.dog,
-		title: "Home"
-	})
-});
 
-router.get('/reverse/:string_to_reverse', (req, resp) => {
-	//split the string
-	const reversed_string = [...req.params.string_to_reverse].reverse().join('');
-	resp.send(reversed_string);
-})
+router.get('/', store_controller.homePage);
+
 
 module.exports = router;
