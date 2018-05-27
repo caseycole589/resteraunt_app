@@ -1,8 +1,11 @@
 exports.homePageMiddleware = (req, res, next) => {
-	req.name = 'casey'
+	// req.name = 'casey'
+	//throwing a custom error
+	// if(req.name == 'casey'){
+	// 	throw Error("That went wrong somehow")
+	// }
 	next();//callback
 }
 exports.homePage = (req, res) => {
-	console.log(req.name)
 	res.render('index');
 }
