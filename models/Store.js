@@ -66,7 +66,7 @@ storeSchema.statics.getTagsList = function() {
     // sort -1 asc 1 des
     return this.aggregate([
         { $unwind: '$tags' },
-        { $group: { _id: "$tags", count: { $sum: 2 } } },
+        { $group: { _id: "$tags", count: { $sum: 1 } } },
         { $sort: { count: -1 } }
     ]);
 }
