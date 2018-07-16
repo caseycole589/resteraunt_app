@@ -24,5 +24,10 @@ router.get('/tags', catchErrors(store_controller.getStoresByTag));
 router.get('/tags/:tag', catchErrors(store_controller.getStoresByTag));
 
 router.get('/login', user_controller.loginForm)
+router.get('/register', user_controller.registerForm)
+//validate registratin
+//register user
+//need to log them in
+router.post('/register', user_controller.validateRegister)
 // router.post('/login', user_controller.)
 module.exports = router;
