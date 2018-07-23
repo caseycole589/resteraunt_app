@@ -3,7 +3,9 @@ const router = express.Router();
 const store_controller = require('../controllers/store_controller')
 const { catchErrors } = require('../handlers/errorHandlers')
 const user_controller = require('../controllers/user_controller');
+const auth_controller = require('../controllers/auth_controller');
 
+router.get('/', catchErrors(store_controller.getStores));
 router.get('/stores', catchErrors(store_controller.getStores));
 router.get('/add', store_controller.addStore);
 router.post('/add',
@@ -28,6 +30,11 @@ router.get('/register', user_controller.registerForm)
 //validate registratin
 //register user
 //need to log them in
-router.post('/register', user_controller.validateRegister)
+router.post('/register',
+    user_controller.validateRegister,
+    user_controller.register,
+    auth_controller.login
+
+)
 // router.post('/login', user_controller.)
 module.exports = router;
