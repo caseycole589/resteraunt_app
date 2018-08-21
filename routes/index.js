@@ -36,5 +36,6 @@ router.post('/register',
     auth_controller.login
 
 )
-// router.post('/login', user_controller.)
+
+router.get('/logout', auth_controller.logout);
 module.exports = router;
