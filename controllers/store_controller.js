@@ -44,11 +44,10 @@ exports.resize = async(req, res, next) => {
 }
 
 exports.createStore = async(req, res) => {
-
+    req.body.author = req.user._id;
     const store = await (new Store(req.body)).save(); // fires off connection to mongo db database
 
     req.flash('success', `Successfully Created ${store.name}! Care To Leave A Review?`);
-
     res.redirect(`/store/${store.slug}`);
 }
 
@@ -59,11 +58,16 @@ exports.getStores = async(req, res) => {
     //eg stores: stores
     res.render('stores', { title: 'Stores', stores })
 }
+const confirmOwner = (store, user) => {
+    if (!store.author.equals(user._id)) {
+        throw Error("You Must Own A Store In Order To Edit It");
+    }
+}
 exports.editStore = async(req, res) => {
     //find the store with given id
     const store = await Store.findOne({ _id: req.params.id })
     //confirm they are owner of store
-    //TODO
+    confirmOwner(store, req.user);
     //render out the edit form so user can update
     res.render('editStore', { title: 'Edit Store', store });
 }
@@ -83,7 +87,7 @@ exports.updateStore = async(req, res) => {
 
 exports.getStoreBySlug = async(req, res, next) => {
     //request.params for get req.body for pos 
-    const store = await Store.findOne({ slug: req.params.slug })
+    const store = await Store.findOne({ slug: req.params.slug }).populate('author')
     if (!store) {
         //throw 404 
         return next();
