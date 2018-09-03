@@ -42,6 +42,11 @@ const storeSchema = new mongoose.Schema({
 
 });
 
+storeSchema.index({
+    name: 'text',
+    description: 'text'
+})
+
 storeSchema.pre('save', async function(next) {
     // only needs to be ran if name is new or changed
     if (!this.isModified('name')) {
