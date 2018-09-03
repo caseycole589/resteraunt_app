@@ -46,7 +46,9 @@ storeSchema.index({
     name: 'text',
     description: 'text'
 })
-
+storeSchema.index({
+    location: '2dsphere'
+})
 storeSchema.pre('save', async function(next) {
     // only needs to be ran if name is new or changed
     if (!this.isModified('name')) {
