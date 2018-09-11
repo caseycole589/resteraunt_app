@@ -50,7 +50,7 @@ router.post('/account/reset/:token',
 );
 
 router.get("/map", store_controller.mapPage)
-
+router.get("/hearts", auth_controller.isLoggedIn, catchErrors(store_controller.getHearts))
 /*api*/
 router.get('/api/search', catchErrors(store_controller.searchStores))
 router.get('/api/stores/near', catchErrors(store_controller.mapStores))
