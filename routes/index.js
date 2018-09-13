@@ -4,7 +4,7 @@ const store_controller = require('../controllers/store_controller')
 const { catchErrors } = require('../handlers/errorHandlers')
 const user_controller = require('../controllers/user_controller');
 const auth_controller = require('../controllers/auth_controller');
-
+const review_controller = require('../controllers/review_controller');
 router.get('/', catchErrors(store_controller.getStores));
 router.get('/stores', catchErrors(store_controller.getStores));
 router.get('/add', auth_controller.isLoggedIn, store_controller.addStore);
@@ -51,6 +51,8 @@ router.post('/account/reset/:token',
 
 router.get("/map", store_controller.mapPage)
 router.get("/hearts", auth_controller.isLoggedIn, catchErrors(store_controller.getHearts))
+router.post('/reviews/:id', auth_controller.isLoggedIn, catchErrors(review_controller.addReview))
+
 /*api*/
 router.get('/api/search', catchErrors(store_controller.searchStores))
 router.get('/api/stores/near', catchErrors(store_controller.mapStores))
