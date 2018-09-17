@@ -89,7 +89,7 @@ exports.updateStore = async(req, res) => {
 
 exports.getStoreBySlug = async(req, res, next) => {
     //request.params for get req.body for pos 
-    const store = await Store.findOne({ slug: req.params.slug }).populate('author')
+    const store = await Store.findOne({ slug: req.params.slug }).populate('author reviews')
     if (!store) {
         //throw 404 
         return next();
@@ -105,7 +105,7 @@ exports.getStoresByTag = async(req, res) => {
 
     const [tags, stores] = await Promise.all([tagsPromise, storesPromise]);
     res.render('tag', { tags, stores, title: "Tags", tag })
-    // res.json(results)
+    // res.json(stores)
 }
 exports.searchStores = async(req, res) => {
     const stores = await Store
