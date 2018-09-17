@@ -53,6 +53,7 @@ router.get("/map", store_controller.mapPage)
 router.get("/hearts", auth_controller.isLoggedIn, catchErrors(store_controller.getHearts))
 router.post('/reviews/:id', auth_controller.isLoggedIn, catchErrors(review_controller.addReview))
 
+router.get('/top', catchErrors(store_controller.getTopStores))
 /*api*/
 router.get('/api/search', catchErrors(store_controller.searchStores))
 router.get('/api/stores/near', catchErrors(store_controller.mapStores))

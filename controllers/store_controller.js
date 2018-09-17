@@ -55,7 +55,7 @@ exports.createStore = async(req, res) => {
 
 exports.getStores = async(req, res) => {
     // query the database for list of all stores before doing anything else
-    const stores = await Store.find();
+    const stores = await Store.find()
     //because of es6 can just past stores because is is the same as the variable name
     //eg stores: stores
     res.render('stores', { title: 'Stores', stores })
@@ -142,6 +142,11 @@ exports.mapStores = async(req, res) => {
 
 exports.mapPage = (req, res) => {
     res.render('map', { title: 'Map' })
+}
+
+exports.getTopStores = async(req, res) => {
+    const stores = await Store.getTopStores();
+    res.render('topStores', { stores, title: "★ Top Stores" })
 }
 
 exports.heartStore = async(req, res) => {
