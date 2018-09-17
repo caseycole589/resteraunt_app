@@ -54,11 +54,24 @@ exports.createStore = async(req, res) => {
 }
 
 exports.getStores = async(req, res) => {
-    // query the database for list of all stores before doing anything else
-    const stores = await Store.find()
-    //because of es6 can just past stores because is is the same as the variable name
-    //eg stores: stores
-    res.render('stores', { title: 'Stores', stores })
+    const page = req.params.page || 1;
+    const limit = 4;
+    const skip = (page * limit) - limit
+
+    const storesPromise = Store
+        .find()
+        .skip(skip)
+        .limit(limit)
+        .sort({ created: 'desc' })
+    const countPromise = Store.count();
+    const [stores, count] = await Promise.all([storesPromise, countPromise])
+    const pages = Math.ceil(count / limit);
+    if (!stores.length && skip) {
+        req.flash('info', `Page ${page} Is Not Available`);
+        res.redirect(`/stores/page/${pages}`)
+        return;
+    }
+    res.render('stores', { title: 'Stores', stores, page, pages, count })
 }
 const confirmOwner = (store, user) => {
     if (!store.author.equals(user._id)) {

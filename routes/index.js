@@ -5,8 +5,11 @@ const { catchErrors } = require('../handlers/errorHandlers')
 const user_controller = require('../controllers/user_controller');
 const auth_controller = require('../controllers/auth_controller');
 const review_controller = require('../controllers/review_controller');
+
 router.get('/', catchErrors(store_controller.getStores));
 router.get('/stores', catchErrors(store_controller.getStores));
+router.get('/stores/page/:page', catchErrors(store_controller.getStores));
+
 router.get('/add', auth_controller.isLoggedIn, store_controller.addStore);
 router.post('/add',
     store_controller.upload,
